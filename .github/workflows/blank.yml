@@ -3,7 +3,7 @@ name: Deploy Airflow to Kubernetes
 on:
   push:
     branches:
-      - master
+      - main
 env:
   HELM_RELEASE_NAME: "airflow"
   HELM_CHART_REPO: "apache/airflow"
