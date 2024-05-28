@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 env:
   HELM_RELEASE_NAME: "airflow"
   HELM_CHART_REPO: "https://airflow.apache.org"
@@ -20,19 +21,19 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up kubectl
-      run: |
-        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
-    
     - name: Create .kube directory
       run: mkdir -p $HOME/.kube
 
     - name: Set up KUBECONFIG
       run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
-     - name: Set up Helm
+    - name: Set up kubectl
+      run: |
+        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/
+
+    - name: Set up Helm
       run: |
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
