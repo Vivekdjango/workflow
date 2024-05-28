@@ -6,7 +6,8 @@ on:
       - main
 env:
   HELM_RELEASE_NAME: "airflow"
-  HELM_CHART_REPO: "apache/airflow"
+  HELM_CHART_REPO: "https://airflow.apache.org"
+  HELM_CHART_NAME: "apache-airflow/airflow"
   NAMESPACE: "airflow"
   DAGS_GIT_REPO: "https://github.com/Vivekdjango/airflow.git"
   DAGS_GIT_BRANCH: "main"
@@ -51,4 +52,3 @@ jobs:
           --set dags.gitSync.repo=${{ env.DAGS_GIT_REPO }} \
           --set dags.gitSync.branch=${{ env.DAGS_GIT_BRANCH }} \
           --set dags.gitSync.interval=60s
-
