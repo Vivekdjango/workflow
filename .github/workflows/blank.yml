@@ -27,6 +27,9 @@ jobs:
     - name: Set up KUBECONFIG
       run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
+    - name: Set KUBECONFIG environment variable
+      run: echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
+
     - name: Set up kubectl
       run: |
         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -36,6 +39,9 @@ jobs:
     - name: Set up Helm
       run: |
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    - name: Verify Kubernetes access
+      run: kubectl cluster-info
 
     - name: Add Helm repo
       run: helm repo add apache-airflow ${{ env.HELM_CHART_REPO }}
