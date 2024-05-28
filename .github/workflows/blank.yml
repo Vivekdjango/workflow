@@ -27,6 +27,9 @@ jobs:
     - name: Set up KUBECONFIG
       run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
+    - name: Cat kube config
+      run: cat $HOME/.kube/config
+
     - name: Set KUBECONFIG environment variable
       run: echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
 
