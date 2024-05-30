@@ -21,18 +21,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Create .kube directory
-      run: mkdir -p $HOME/.kube
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Set up KUBECONFIG
-      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-
-    - name: Cat kube config
-      run: cat $HOME/.kube/config
-
-    - name: Set KUBECONFIG environment variable
-      run: echo "KUBECONFIG=$HOME/.kube/config" >> $GITHUB_ENV
-
+    - name: Azure CLI - AKS set context
+      uses: azure/aks-set-context@v1
+      with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          resource-group: ${{ secrets.AZURE_RG }}
+          cluster-name: ${{ secrets.AZURE_CLUSTER }}
+          
     - name: Set up kubectl
       run: |
         curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
