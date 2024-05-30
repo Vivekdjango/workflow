@@ -67,5 +67,4 @@ jobs:
           --set dags.gitSync.enabled=true \
           --set dags.gitSync.repo=${{ env.DAGS_GIT_REPO }} \
           --set dags.gitSync.branch=${{ env.DAGS_GIT_BRANCH }} \
-          --set dags.gitSync.wait=true \
-          --set dags.gitSync.timeout=30s
+          --set dags.gitSync.wait=30
